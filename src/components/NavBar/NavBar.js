@@ -1,4 +1,5 @@
-import Button from '@mui/material/Button'
+import Button from '@mui/material/Button';
+import CartWidget from '../CartWidget/CartWidget';
 
 function NavBar() {
     return(
@@ -13,8 +14,9 @@ function NavBar() {
             <li> <Button  variant="contained">Nosotros</Button>   </li>
             <li> <Button  variant="contained">Novedades</Button>   </li>
             <li> <Button  variant="contained">Contacto</Button>   </li>
+            <li><CartWidget/></li>
           </ul>
-        </div>
+         </div>
       </header>
     )
 }
