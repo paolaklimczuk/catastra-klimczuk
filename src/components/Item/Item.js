@@ -1,11 +1,11 @@
 import { queryByTestId } from '@testing-library/react';
 import React from 'react';
 import ItemCount from '../ItemCount/ItemCount'
-import './Card.css'
+import './Item.css'
 
-export default function Card(props) {
+export default function Item({props}) {
 
-    const {title, brand, price, kg, stock, initial} = props;
+    const {title, brand, price, kg, stock, initial, img, id} = props;
 
     const onAdd = (qty) => {
         alert (`Agregaste ${qty} productos`);
@@ -13,10 +13,10 @@ export default function Card(props) {
 
     return (
         <div className="cardStyle">
-            <h2>{title}</h2>
-            <p>Marca:  {brand}</p>
-            <p>Precio: $ {price}</p>
-            <p>kilos:  {kg}</p>
+            <h2>{title}</h2>           
+            <p className="parrafoStyle"> Marca:  {brand}</p>
+            <p className="parrafoStyle"> Precio: $ {price}</p>
+            <p className="parrafoStyle"> kilos:  {kg}</p>
             <ItemCount stock ={stock} initial={initial} onAdd = {onAdd}/>
         </div>
     );
