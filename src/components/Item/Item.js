@@ -16,7 +16,6 @@ export default function Item({props}) {
             <h2>{title}</h2>           
             <p className="parrafoStyle"> Marca:  {brand}</p>
             <p className="parrafoStyle"> Precio: $ {price}</p>
-            <p className="parrafoStyle"> kilos:  {kg}</p>
             <ItemCount stock ={stock} initial={initial} onAdd = {onAdd}/>
         </div>
     );

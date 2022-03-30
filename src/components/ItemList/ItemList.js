@@ -32,6 +32,26 @@ export default function ItemList() {
         kg : 22,
         stock : 100,
         initial : 1,  
+    },
+    {
+        id : 4,
+        img: "Nutrique.jpg",
+        title : "Alimento Perro grande",
+        brand : "Nutrique", 
+        price : 3800,
+        kg : 18,
+        stock : 45,
+        initial : 1, 
+    },
+    {
+        id : 5,
+        img: "Keiko.jpg",
+        title : "Alimento Perro grande",
+        brand : "Keiko", 
+        price : 3200,
+        kg : 20,
+        stock : 90,
+        initial : 1, 
 
     }]
 
