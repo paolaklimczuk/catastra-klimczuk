@@ -1,0 +1,29 @@
+div > div > div > button.button-style {
+    align-items: center;
+    text-decoration: none; 
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-color: black;
+    border-width: 20px;
+  }
+
+
+div > div > ul > li.submenu-style > a {
+    text-decoration: none;
+    align-items: center;
+    background:#e9e9f5;    
+    background-color:#e9e9f5;   
+    font-size:small;
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-color: black;
+    border-width: 20px;
+  }
+
+  .MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root.submenu-style.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root{
+    background-color: #e9e9f5; 
+}
+
+ul.MuiList-root.MuiList-padding.MuiMenu-list.css-6hp17o-MuiList-root-MuiMenu-list {
+  background-color: #e9e9f5; 
+}

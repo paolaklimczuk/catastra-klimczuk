@@ -1,0 +1,11 @@
+.faq-style {
+    text-align: left;
+    margin-top: 2%;
+    width: fit-content;
+    background-color: #e9e9f5;
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 100%;
+}

@@ -1,4 +1,12 @@
 .list-styte {
+    align-items: center;
+    font-size:small;
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+MenuItem > Button {
+    text-decoration: none;
     font-size:small;
     color: black;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

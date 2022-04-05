@@ -7,7 +7,7 @@ export default function CartWidget() {
     return (
         <IconButton color="primary" aria-label="Agregar" className='cartStyle'>
         <AddShoppingCartIcon/>
-        <p>5</p>
+        <p className='parrafStyle' >5</p>
         </IconButton>
     );
 }

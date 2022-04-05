@@ -1,4 +1,4 @@
-ul.navbar > li > button {
+navbar > button {
     align-items: center;
     background: #4d4c4c29;
     color: black;
@@ -24,7 +24,7 @@ ul.navbar {
 }
 
 .container-logo {
-    width: 25%;
+    width: 9%;
 }
 
 .h3Style {
