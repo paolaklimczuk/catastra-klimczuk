@@ -1,44 +1,45 @@
 import React from 'react';
 import './ItemDetail.css';
-import { useParams } from 'react-router-dom';
-import { useEffect , useState} from 'react';
-import mockProducts from '../../productsMock';
-import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
+import ItemCount from '../ItemCount/ItemCount';
 
-export default function ItemDetail() {
 
-    const [product, setProduct] = useState({});
+export default function ItemDetail({props}) {
 
-    const {id} = useParams();
+    const {title, category, img, brand, kg, stock, price, initial = 1} = props;
 
-    useEffect ( () => {
-        filterProductById(mockProducts, id);
-    },[])
+    const [buy, setBuy] = useState(0);
 
-    const filterProductById = (array, id) => {
-        return array.filter ( (product) => {
+    const navigate = useNavigate();
 
-            if (product.id == id) {
-                return setProduct(product);
-            }
-        })
-    }    
+    const finishBuy = () => {
+         navigate(`/cart`)
+     }
+
+    const onAdd = (quantity) => {
+        alert (`Se agregaron ${quantity} productos`);
+        setBuy(quantity);
+    }   
 
     return (
         
             <div className='detailStyle' >
                 <div className='prodContentStyle'>  
                     <div className="colRightStyle">
-                       <img className="img-selected" src={product.img}/>
+                       <img className="img-selected" src={img}/>
                     </div>
                     <div className="colLeftStyle">
-                        <h3>CATEGORIA: {product.category}</h3>   
-                        <p>{product.title}</p>           
-                        <p> Marca:  {product.brand}</p>
-                        <p> Precio: $ {product.price}</p>
-                        <p> kilos:  {product.kg}</p>
-                        <p> Stock:  {product.stock}</p>           
+                        <h3>CATEGORIA: {category}</h3>   
+                        <p>{title}</p>           
+                        <p> Marca:  {brand}</p>
+                        <p> Precio: $ {price}</p>
+                        <p> kilos:  {kg}</p>
+                        <p> Stock:  {stock}</p>                        
+                        {(buy == 0) && <ItemCount stock={stock} initial={initial} onAdd={onAdd}/>}
+                        <button onClick={finishBuy}>Terminar Compra</button>       
                     </div>
+           
                 </div>
             </div>  
    

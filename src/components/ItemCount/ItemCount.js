@@ -17,10 +17,7 @@ export default function ItemCount(props) {
     const checkStock = () => {
         onAdd(count);
     }    
-    
-    const showDetailProduct = () => {
-      
-    }
+ 
     return (
         <div>
             <div>
@@ -32,6 +29,6 @@ export default function ItemCount(props) {
                 <button onClick={addCount}>+</button>        
             </div>            
                 <button onClick={checkStock}>Agregar</button>
-            </div>        
+        </div>        
     )
 }
