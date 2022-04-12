@@ -3,13 +3,17 @@ import React from 'react';
 import ItemCount from '../ItemCount/ItemCount'
 import './Item.css';
 import { Link } from 'react-router-dom';
+import {useContext} from 'react';
+import CartContext from '../../context/CartContext';
 
 export default function Item({props}) {
 
-    const {title, category,  brand, price, kg, stock, initial, img, id} = props;
+    const {cartProducts, addProductToCart } = useContext(CartContext);
+
+    const {id, title, category,  brand, price, kg, stock, initial = 1, img} = props;
 
     const onAdd = (qty) => {
-        alert (`Agregaste ${qty} productos`);
+        addProductToCart(props, qty);
     }
 
     return (

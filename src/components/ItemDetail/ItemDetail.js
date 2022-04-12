@@ -1,16 +1,19 @@
 import React from 'react';
 import './ItemDetail.css';
 import { useNavigate } from 'react-router-dom';
-import {useState} from 'react';
+import {useState , useEffect , useContext} from 'react';
 import ItemCount from '../ItemCount/ItemCount';
-
+import CartContext from '../../context/CartContext';
 
 export default function ItemDetail({props}) {
 
-    const {title, category, img, brand, kg, stock, price, initial = 1} = props;
+    const {cartProducts, addProductToCart } = useContext(CartContext);
+
+    const {id, title, category, img, brand, kg, stock, price, initial = 1} = props;
 
     const [buy, setBuy] = useState(0);
 
+    
     const navigate = useNavigate();
 
     const finishBuy = () => {
@@ -18,7 +21,7 @@ export default function ItemDetail({props}) {
      }
 
     const onAdd = (quantity) => {
-        alert (`Se agregaron ${quantity} productos`);
+        addProductToCart(props, quantity);
         setBuy(quantity);
     }   
 

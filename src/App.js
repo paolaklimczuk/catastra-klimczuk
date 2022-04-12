@@ -8,10 +8,12 @@ import UsPage from './pages/Us';
 import FaqPage from './pages/Faq';
 import DetailPage from './pages/Detail';
 import CartPage from './pages/Cart';
+import {CartProvider} from './context/CartContext';
 
 function App() {
   return (
     <div className="App">        
+    <CartProvider>
         <BrowserRouter>
           <NavBar/>
           <Routes>
@@ -22,11 +24,10 @@ function App() {
             <Route path='/nosotros' element={<UsPage/>}/>
             <Route path='/faq' element={<FaqPage/>}/>
             <Route path='/cart' element={<CartPage/>}/>
-            <Route path='*' element={<NotFoundPage/>}/>
-       
+            <Route path='*' element={<NotFoundPage/>}/>       
           </Routes>
         </BrowserRouter>
-       
+      </CartProvider>       
     </div>
   );
 }

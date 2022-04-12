@@ -16,7 +16,7 @@ import './NavBar.css'
         <Container className='nav-style'>
                 <img className='container-logo' src="../logo.png" onClick={handleLogoClick}/>
                 <MenuPopupState />               
-            <CartWidget />
+                <CartWidget />
         </Container>
     );
 }
