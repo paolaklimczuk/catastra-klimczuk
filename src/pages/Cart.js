@@ -1,11 +1,77 @@
-import { Container } from "@mui/material";
+import { useContext } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CartContext from "../context/CartContext";
+import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import './Cart.css';
 
-const CartPage =  () => {
-    return(
-        <Container className="faq-style">
-            <h2> Carrito de compras</h2>
-        </Container >
+
+const CartPage = () => {
+    const { cartProducts, deleteProduct, resetProducts, totalPrice, quantityProducts } = useContext(CartContext)
+    return (
+        <Container  className= "containerStyle">
+            {
+                (cartProducts.length === 0) &&
+                <div className= "containerStyle">
+                    <p className= "parrafoStyle"> Sin productos en carrito...</p>
+                    <Link to='/'>
+                        <button className='button-style'>CONTINUAR</button>
+                    </Link>
+                </div>
+            }
+            {
+                (cartProducts.length != 0) &&
+                <TableContainer  component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow className="containerStyle">
+                                <TableCell className="containerStyle">TIPO PRODUCTO</TableCell>
+                                <TableCell className="containerStyle">IMAGEN</TableCell>                                
+                                <TableCell className="containerStyle" align="middle">MARCA</TableCell>
+                                <TableCell className="containerStyle" align="center">PRECIO</TableCell>
+                                <TableCell className="containerStyle" align="center">CANTIDAD</TableCell>
+                                <TableCell className="containerStyle" align="center">TOTAL POR PRODUCTO</TableCell>
+                                <TableCell className="containerStyle" align="center">ELIMINAR</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {cartProducts.map((cartProduct) => (
+                                <TableRow  key={cartProduct.prod.id}>
+                                     <TableCell className="parrafoStyle" component="th" scope="row">
+                                        {cartProduct.prod.title}
+                                    </TableCell>
+                                    <TableCell className="parrafoStyle" component="th" scope="row">
+                                        {<img className="imgCart" src={cartProduct.prod.img}></img>}
+                                    </TableCell>                                   
+                                    <TableCell className="parrafoStyle" align="right">{cartProduct.prod.brand}</TableCell>
+                                    <TableCell className="parrafoStyle" align="right"> $ {cartProduct.prod.price}</TableCell>
+                                    <TableCell className="parrafoStyle" align="right">{cartProduct.qty}</TableCell>
+                                    <TableCell className="parrafoStyle" align="right"> $ {(cartProduct.prod.price * cartProduct.qty)}</TableCell>
+                                    <TableCell className="parrafoStyle" align="right">{<DeleteIcon onClick={() => {deleteProduct(cartProduct.prod.id) }}></DeleteIcon>} 
+                                    </TableCell>
+                                </TableRow>
+
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <div  className= "finallyStyle">
+                         <p className="parrafoStyle"> TOTAL de productos: {quantityProducts()}</p>
+                         <p className ="parrafoStyle">MONTO TOTAL       : ${totalPrice()}</p>
+                         <button onClick={() => {resetProducts()}}>RESETEAR Carrito de compras</button>
+                    </div>
+                </TableContainer>
+            }
+        </Container>
+
     )
 
 }
+
 export default CartPage;

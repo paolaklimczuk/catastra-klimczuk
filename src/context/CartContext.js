@@ -32,8 +32,19 @@ const CartProvider =  ({children}) => {
         return total
     }
 
-    const deleteProduct = (product) => {
-        setCartProducts(cartProducts.filter( cartProduct => cartProduct.prod.id !== product.id))
+    const quantityProducts = () => {
+        let cant = 0
+
+        cartProducts.map( (cartProduct) => {
+
+            cant = cant + cartProduct.qty
+         })
+
+        return cant
+    }
+
+    const deleteProduct = (id) => {
+        setCartProducts(cartProducts.filter( cartProduct => cartProduct.prod.id !== id))
     }
 
     const resetProducts = () => {
@@ -45,7 +56,8 @@ const CartProvider =  ({children}) => {
         addProductToCart,
         totalPrice,
         deleteProduct, 
-        resetProducts
+        resetProducts,
+        quantityProducts
     }
 
 return (

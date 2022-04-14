@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 
 export default function CartWidget() {
 
-    const {cartProducts, totalPrice, deleteProduct} = useContext (CartContext);
+    const {cartProducts, totalPrice, deleteProduct, quantityProducts} = useContext (CartContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
     
@@ -26,17 +26,18 @@ export default function CartWidget() {
       setAnchorEl(null);
     };
 
-    return (
+    return ( totalPrice() > 0 &&
         <IconButton>
             <ShoppingCartIcon 
                 onClick={handleClick}
                 size="small"
+                background-color="white"
                 sx={{ ml: 2 }}
                 aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
             />
-            <p className='parrafStyle'>{cartProducts.length}</p>
+            <p className='parrafoStyle'>{quantityProducts()}</p>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -47,7 +48,7 @@ export default function CartWidget() {
                 PaperProps={{
                 elevation: 0,
                 sx: {
-                    overflow: 'visible',
+                    overflow: 'scroll',
                     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                     mt: 1.5,
                     '& .MuiAvatar-root': {
@@ -73,21 +74,21 @@ export default function CartWidget() {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                <p className='parrafStyle'>Carrito de Compras</p>
+                <p className='parrafoStyle'>CARRITO de Compras</p>
                 <Divider />
                 {cartProducts.map( (cartProduct) => {
                     return(
-                        <MenuItem className='submenu-style' key={cartProduct.prod.id}>
+                        <MenuItem className='submenuStyle' key={cartProduct.prod.id}>
                             <div>
                                 <img className='imgItemStyle' src={`./${cartProduct.prod.img}`} /> 
                             </div>
                             <div className='itemModalStyle'>
-                                <p className='parrafStyle'>{cartProduct.prod.title}</p>
-                                <p className='parrafStyle'>Cantidad agregada: {cartProduct.qty}</p>
-                                <span className='parrafStyle'>$ {cartProduct.prod.price}</span>
+                                <p className='parrafoStyle'>{cartProduct.prod.title}</p>
+                                <p className='parrafoStyle'>Cantidad agregada: {cartProduct.qty}</p>
+                                <span className='parrafoStyle'>$ {cartProduct.prod.price}</span>
                             </div>
                             <div className='itemModalActionStyle'>
-                                <DeleteIcon/> 
+                                <DeleteIcon onClick={() => { deleteProduct(cartProduct.prod.id) }} /> 
                             </div>
                         </MenuItem>
                     )
