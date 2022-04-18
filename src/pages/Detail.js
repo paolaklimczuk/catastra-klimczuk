@@ -2,7 +2,8 @@ import React from 'react';
 import ItemDetail from '../components/ItemDetail/ItemDetail';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import mockProducts from "../productsMock";
+import db from '../firebase';
+import {doc , getDoc} from "firebase/firestore";
 
 const DetailPage = () => {
 
@@ -10,20 +11,25 @@ const DetailPage = () => {
     const [product, setProduct] = useState({})
 
     useEffect( () => {
-        filterProductByid(mockProducts, id)
+        getProduct()
     }, [id])
 
-    const filterProductByid= (array , id) => {
-        return array.map( (product) => {
-            if(product.id == id) {
-                return setProduct(product)
-            }
-        })
-    } 
+    const getProduct = async () => {
+        
+        const docRef = doc (db, 'productos', id);        
+        
+        const docSnap  = await getDoc (docRef);
 
-    return (
-        <ItemDetail props={product}/>
-    );
+        let prod = docSnap.data() 
+        prod.id = docSnap.id
+
+        setProduct(prod)
+
+        }        
+
+        return (
+             <ItemDetail props={product}/>
+        );
 }
 
 export default DetailPage;
