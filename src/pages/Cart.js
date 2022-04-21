@@ -11,10 +11,68 @@ import CartContext from "../context/CartContext";
 import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import './Cart.css';
+import React, {useState} from "react";
+import ModalCustom from '../components/Modal/Modal';
+import db from '../firebase'
+import { addDoc, collection } from 'firebase/firestore';
+
 
 
 const CartPage = () => {
     const { cartProducts, deleteProduct, resetProducts, totalPrice, quantityProducts } = useContext(CartContext)
+    const [openModal, setOpenModal] = useState(false)
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',  
+        email: '',
+    })
+    const [order, setOrder] = useState(
+        {
+            buyer: formData,
+            items: cartProducts.map((cartProd) => {
+                return {
+                    id: cartProd.prod.id,
+                    title: cartProd.prod.title,
+                    price: cartProd.prod.price
+                }
+            }),
+            dateOrder: 0,
+            total: totalPrice()
+        }
+
+    )
+
+    const [successOrder, setSuccessOrder] = useState()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let prevOrder = {...order,
+            buyer: formData,
+            dateOrder: (new Date()).toDateString()
+        }
+        setOrder({...order,
+            buyer: formData,
+            dateOrder: (new Date()).toDateString() })
+        pushOrder(prevOrder)
+    }
+
+    const pushOrder = async (prevOrder) => {
+        const orderFirebase = collection(db, 'ordenes')
+        const orderDoc = await addDoc(orderFirebase, prevOrder)        
+        setSuccessOrder(orderDoc.id)
+        
+    }
+
+    const handleChange = (e) => {
+        const {value, name} = e.target
+
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+    }   
+
+
     return (
         <Container  className= "containerStyle">
             {
@@ -65,9 +123,48 @@ const CartPage = () => {
                          <p className="parrafoStyle"> TOTAL de productos: {quantityProducts()}</p>
                          <p className ="parrafoStyle">MONTO TOTAL       : ${totalPrice()}</p>
                          <button onClick={() => {resetProducts()}}>RESETEAR Carrito de compras</button>
-                    </div>
+                         <button onClick={() => setOpenModal(true)}>Finalizar Compra</button>
+                    </div>     
                 </TableContainer>
             }
+
+            <ModalCustom handleClose={() => setOpenModal(false)} open={openModal}>
+                
+                {successOrder ? (
+                    <div>
+                        <h3>Orden generada correctamente</h3>
+                        <p>Su numero de orden es: {successOrder}</p>
+                        <div>
+                            <Link to='/'>
+                                <button className='button-style' onClick={() => { resetProducts() }}>Salir</button>
+                            </Link>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <h2>Formulario para realizar orden de Compra</h2>
+                        <form onSubmit={handleSubmit}>
+                            <input type="text" name='name' placeholder='Nombre' 
+                                onChange={handleChange} 
+                                value={formData.name}
+                                required
+                            />
+                            <input type="number" name='phone' placeholder='Telefono' 
+                                onChange={handleChange} 
+                                value={formData.phone}
+                                required
+                            />
+                            <input type="mail" name='email' placeholder='mail' 
+                                onChange={handleChange} 
+                                value={formData.email}
+                                required
+                            />
+                            <button className='button-style' type="submit">Enviar</button>
+                        </form>
+                    </>
+                )}
+                
+            </ModalCustom>
         </Container>
 
     )

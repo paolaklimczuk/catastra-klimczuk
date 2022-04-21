@@ -17,15 +17,13 @@ export default function ItemList({category = 'allProducts'}) {
         const itemColletion = collection (db, 'productos');        
         
         const productsSnapshot  = await getDocs (itemColletion);
-        console.log ("snap: " , productsSnapshot);
-
+       
         const productList   = productsSnapshot.docs.map(
             doc => {
-                // console.log ("doc:" , doc.data());
-                // console.log ("id:" , doc.id);
+      
                 let product = doc.data();
                 product.id = doc.id
-                console.log ("product:" , product);
+                
                 return product
             }
         )
