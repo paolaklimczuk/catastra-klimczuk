@@ -6,14 +6,17 @@ export default function ItemCount(props) {
     
     const [count, setCount] = useState(initial);
 
+    //Agrega una cantidad
     const addCount = () => {
         (count<stock) && (setCount(count+1));
     }
-
+    
+    //Remueve una cantidad
     const removeCount = () => {
         (count>initial) && (setCount(count-1));
     }
 
+    //Chequea si hay disponible una cantidad
     const checkStock = () => {
         onAdd(count);
     }    

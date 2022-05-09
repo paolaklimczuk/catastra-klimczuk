@@ -1,25 +1,34 @@
 import React from 'react';
-import './ItemDetail.css';
+
+//Hooks utilizados
 import { useNavigate } from 'react-router-dom';
-import {useState , useEffect , useContext} from 'react';
+import {useState , useContext} from 'react';
+
+//Componente utilizado propio de la aplicacion
 import ItemCount from '../ItemCount/ItemCount';
+
+//utilizacion de contexto del carrito
 import CartContext from '../../context/CartContext';
+
+//Estilo utilizado
+import './ItemDetail.css';
 
 export default function ItemDetail({props}) {
 
-    const {cartProducts, addProductToCart } = useContext(CartContext);
+    const {addProductToCart } = useContext(CartContext);
 
-    const {id, title, category, img, brand, kg, stock, price, initial = 1} = props;
+    const {title, category, img, brand, kg, stock, price, initial = 1} = props;
 
     const [buy, setBuy] = useState(0);
-
     
     const navigate = useNavigate();
 
+    //Al finalizar la compra se direcciona a la pagina del carrito
     const finishBuy = () => {
          navigate(`/cart`)
      }
 
+     //Agrega producto al carrito con su cantidad pedida
     const onAdd = (quantity) => {
         addProductToCart(props, quantity);
         setBuy(quantity);

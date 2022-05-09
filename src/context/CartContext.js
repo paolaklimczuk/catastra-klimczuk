@@ -1,12 +1,14 @@
 import {createContext, useState} from "react";
 
+//Componente creado para guardar lo cargado en el carrito de compras y asi poder ser
+//accedido por todos sus componentes hijos
 const CartContext = createContext();
 
 const CartProvider =  ({children}) => {
 
-    const [cartProducts, setCartProducts] = useState([])
-    // const [totalPrice, setTotalPrice] = useState(0)
-
+    const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem("productos")) || [] )
+   
+    //Agrega un producto al carrito con sus cantidad pedida
     const addProductToCart = (product , quantity) => {
    
         let objeto = {qty: quantity , prod: product }
@@ -14,10 +16,12 @@ const CartProvider =  ({children}) => {
         let exist = cartProducts.find(cartProduct => cartProduct.prod.id === product.id)
         if (!exist) {
          setCartProducts(cartProducts => [...cartProducts, objeto])
-        //  setTotalPrice (totalPrice + (product.quantity * product.price))
+      
+        localStorage.setItem("productos", JSON.stringify([...cartProducts, objeto]))
         }
     }
 
+    // Devuelve el precio total del carrito
     const totalPrice = () => {
         let total = 0
 
@@ -28,6 +32,7 @@ const CartProvider =  ({children}) => {
         return total
     }
 
+    //Devuelve cantidad total de productos agregados al carrito
     const quantityProducts = () => {
         let cant = 0
 
@@ -39,12 +44,17 @@ const CartProvider =  ({children}) => {
         return cant
     }
 
+    // Borra un producto del carrito (accediendo por id)
     const deleteProduct = (id) => {
-        setCartProducts(cartProducts.filter( cartProduct => cartProduct.prod.id !== id))
+        const updatedCartProducts = cartProducts.filter((cartProduct) => { return cartProduct.prod.id !== id })
+        setCartProducts(updatedCartProducts)
+        localStorage.setItem("productos", JSON.stringify(updatedCartProducts))        
     }
 
+    // vacia el carrito    
     const resetProducts = () => {
         setCartProducts([])
+        localStorage.removeItem("productos")
     }
 
     const data = {

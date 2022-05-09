@@ -1,7 +1,13 @@
 import React from "react";
+
+//Componente utilizado propio de la aplicacion
 import ItemList from "../ItemList/ItemList";
-import './ItemListContainer.css'; 
+
+// Hook utilizado
 import { useParams } from "react-router-dom";
+
+//Estilo utilizado
+import './ItemListContainer.css'; 
 
 export default function ItemListContainer(props) {
 

@@ -1,11 +1,18 @@
 import React, {useState, useEffect} from "react";
+
+//Componente uitilizado propio de la aplicacion
 import Item from "../Item/Item";
-import mockProducts from '../../productsMock';
+
+//Componentes utilizados de MUI
 import { Container } from "@mui/material";
 import LinearProgress from '@mui/material/LinearProgress';
-import '../../App.css';
+
+// Para comunicacion a la base de datos de firebase
 import db from '../../firebase';
 import {collection , getDocs} from "firebase/firestore";
+
+//Estilo utilizado
+import '../../App.css';
 
 export default function ItemList({category = 'allProducts'}) {
 
@@ -31,18 +38,7 @@ export default function ItemList({category = 'allProducts'}) {
 
     }
 
-    // const getProducts = () => {
-    //     return new Promise((resolve, reject) => {
-    //       setTimeout(() => {
-    //         if(mockProducts.length>0)
-    //           resolve(mockProducts);          
-    //         else
-    //           reject('error');
-    //       }, 2000);
-    //     });
-    //   }; 
-
-     useEffect(() => {
+    useEffect(() => {
         setProducts([]);
         getProducts().then((prods) => {
             findProductByCategory(prods, category)

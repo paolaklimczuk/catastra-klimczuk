@@ -1,15 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+//Componentes utilizados de MUI
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import DeleteIcon from '@mui/icons-material/Delete';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import './CartWidget.css';
-import {useContext , useState} from 'react';
-import CartContext from '../../context/CartContext';
-import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
+
+//Estilo utlizado
+import './CartWidget.css';
+
+//Hooks
+import {useContext , useState} from 'react';
+
+//Uilizacion del conexto del carrito
+import CartContext from '../../context/CartContext';
 
 export default function CartWidget() {
 
@@ -27,15 +35,15 @@ export default function CartWidget() {
     };
 
     return ( totalPrice() > 0 &&
-        <IconButton>
-            <ShoppingCartIcon 
-                onClick={handleClick}
+        <IconButton sx={{ alignItems: 'right', textAlign: 'right'} }>
+            <ShoppingCartIcon                 
                 size="small"
                 background-color="white"
                 sx={{ ml: 2 }}
                 aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
             />
             <p className='parrafoStyle'>{quantityProducts()}</p>
             <Menu
@@ -52,7 +60,7 @@ export default function CartWidget() {
                     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                     mt: 1.5,
                     '& .MuiAvatar-root': {
-                    width: 32,
+                    width: 32,  
                     height: 32,
                     ml: -0.5,
                     mr: 1,
